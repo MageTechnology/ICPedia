@@ -36,18 +36,28 @@ O ICPedia foi desenvolvido para democratizar o conhecimento sobre o Internet Com
 
 ## 🚀 Como Executar o Projeto
 
-### Pré-requisitos
+### 🌐 Deploy Direto na Mainnet (Recomendado)
+
+**Deploy instantâneo e gratuito via ICP Ninja!**
+
+Quando visualizar este projeto no ICP Ninja, você pode fazer deploy diretamente na mainnet gratuitamente clicando em "Run" no canto superior direito. Abra este projeto no ICP Ninja:
+
+[![Deploy no ICP Ninja](https://icp.ninja/assets/open.svg)](https://icp.ninja/i?g=https://github.com/MageTechnology/ICPedia)
+
+### 💻 Instalação Local
+
+#### Pré-requisitos
 
 - [Node.js](https://nodejs.org/) (versão 16 ou superior)
 - [DFX](https://internetcomputer.org/docs/current/developer-docs/setup/install/) (SDK do Internet Computer)
 - [Git](https://git-scm.com/)
 
-### Instalação
+#### Instalação
 
 1. **Clone o repositório**
    ```bash
-   git clone https://github.com/seu-usuario/icpedia.git
-   cd icpedia
+   git clone https://github.com/MageTechnology/ICPedia.git
+   cd ICPedia
    ```
 
 2. **Instale as dependências do frontend**
@@ -71,6 +81,23 @@ O ICPedia foi desenvolvido para democratizar o conhecimento sobre o Internet Com
    ```bash
    dfx canister open frontend
    ```
+
+## 🌐 Sobre o ICP Ninja
+
+O [ICP Ninja](https://icp.ninja) é uma plataforma que permite fazer deploy de projetos diretamente na mainnet do Internet Computer sem necessidade de configuração local. É perfeito para:
+
+- **Deploy Rápido**: Deploy instantâneo com um clique
+- **Gratuito**: Sem custos para projetos open source
+- **Sem Configuração**: Não precisa instalar DFX ou outras ferramentas
+- **Mainnet**: Deploy direto na rede principal do ICP
+
+### Como Funciona
+
+1. Clique no botão "Deploy no ICP Ninja" acima
+2. Aguarde o carregamento do projeto
+3. Clique em "Run" no canto superior direito
+4. Aguarde o deploy (pode levar alguns minutos)
+5. Acesse sua aplicação na mainnet!
 
 ## 📁 Estrutura do Projeto
 
