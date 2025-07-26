@@ -7,8 +7,26 @@
 
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background-color: #f4f7f9;
+  background: linear-gradient(135deg, #f4f7f9 0%, #e2e8f0 100%);
   color: #2d3748;
+  min-height: 100vh;
+}
+
+/* Melhorar tipografia */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+/* Melhorar contraste e legibilidade */
+.icpedia-text-primary {
+  color: #1a202c;
+  font-weight: 500;
+}
+
+.icpedia-text-secondary {
+  color: #4a5568;
+  font-weight: 400;
 }
 
 /* Cores customizadas para ICPedia */
@@ -42,4 +60,63 @@ body {
 
 .icpedia-bot-message {
   background-color: #ffffff;
+}
+
+/* Animações e transições */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.chat-message {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.loading-pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Hover effects */
+.icpedia-accent:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(49, 130, 206, 0.3);
+  transition: all 0.2s ease;
+}
+
+.chat-container {
+  scroll-behavior: smooth;
+}
+
+/* Melhorar scrollbar */
+.chat-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.chat-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.chat-container::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
 }
