@@ -162,6 +162,58 @@ Os estilos estão organizados em:
 - `frontend/index.css`: Estilos globais e customizados
 - `frontend/src/main.jsx`: Classes Tailwind CSS
 
+## 🛠️ Desenvolvimento Local
+
+### Configuração do Ollama (Opcional)
+
+Para testar o agente localmente com um modelo LLM, você precisará de um servidor para processar os prompts. Recomendamos usar o `ollama`:
+
+1. **Instale o Ollama** seguindo a [documentação oficial](https://ollama.com/)
+
+2. **Inicie o servidor Ollama:**
+   ```bash
+   ollama serve
+   # Aguarde a mensagem: "Listening on port 11434"
+   ```
+
+3. **Em outro terminal, baixe o modelo LLM:**
+   ```bash
+   ollama run llama3.1:8b
+   # Este comando baixa um modelo de 8B parâmetros (~4GB)
+   ```
+
+4. **Após o download, você pode parar o comando** - o modelo ficará disponível para uso
+
+### Build e Deploy Detalhado
+
+1. **Clone o repositório:**
+   ```bash
+   git clone https://github.com/MageTechnology/ICPedia.git
+   cd ICPedia
+   ```
+
+2. **Instale dependências:**
+   ```bash
+   cd frontend && npm install && cd ..
+   ```
+
+3. **Inicie o ambiente local:**
+   ```bash
+   dfx start --background --clean
+   ```
+
+4. **Deploy do projeto:**
+   ```bash
+   dfx deploy
+   ```
+
+5. **Abra a aplicação:**
+   ```bash
+   dfx canister open frontend
+   ```
+
+
+
 ## 🤝 Contribuindo
 
 Contribuições são bem-vindas! Para contribuir:
