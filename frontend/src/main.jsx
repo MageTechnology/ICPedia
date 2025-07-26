@@ -1,9 +1,22 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
-import { backend } from 'declarations/backend';
 import botImg from '/bot.svg';
 import userImg from '/user.svg';
 import '/index.css';
+
+// Import dinâmico das declarações
+let backend;
+const loadBackend = async () => {
+  try {
+    const module = await import('declarations/backend');
+    backend = module.backend;
+  } catch (e) {
+    console.warn('Declarações não encontradas, usando mock para build');
+    backend = {
+      chat: async () => "Erro: Backend não disponível durante build"
+    };
+  }
+};
 
 const App = () => {
   const [chat, setChat] = useState([
@@ -13,7 +26,15 @@ const App = () => {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [backendLoaded, setBackendLoaded] = useState(false);
   const chatBoxRef = useRef(null);
+
+  // Carregar backend na inicialização
+  useEffect(() => {
+    loadBackend().then(() => {
+      setBackendLoaded(true);
+    });
+  }, []);
 
   const formatDate = (date) => {
     const h = '0' + date.getHours();
@@ -22,6 +43,17 @@ const App = () => {
   };
 
   const askAgent = async (messages) => {
+    if (!backendLoaded) {
+      setChat((prevChat) => {
+        const newChat = [...prevChat];
+        newChat.pop();
+        newChat.push({ system: { content: "Carregando backend..." } });
+        return newChat;
+      });
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const response = await backend.chat(messages);
       setChat((prevChat) => {
@@ -137,10 +169,12 @@ const App = () => {
           <button
             type="submit"
             className="rounded-r-lg icpedia-accent p-3 text-white hover:icpedia-accent-hover disabled:bg-blue-300 flex items-center justify-center min-w-[80px]"
-            disabled={isLoading}
+            disabled={isLoading || !backendLoaded}
           >
             {isLoading ? (
               <div className="loading-pulse">⏳</div>
+            ) : !backendLoaded ? (
+              <span>Carregando...</span>
             ) : (
               <span>Enviar</span>
             )}

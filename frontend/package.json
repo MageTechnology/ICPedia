@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "prebuild": "npm i --include=dev",
-    "build": "vite build",
+    "build": "vite build --config vite.build.config.js",
     "dev": "vite",
     "generate": "dfx generate backend"
   },

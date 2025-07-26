@@ -21,18 +21,13 @@ export default defineConfig({
     alias: [
       {
         find: 'declarations',
-        replacement: fileURLToPath(new URL('../src/declarations', import.meta.url))
+        replacement: fileURLToPath(new URL('./src/mock-declarations', import.meta.url))
       }
     ]
   },
-
-  server: {
-    proxy: {
-      '/api': {
-        target: 'http://127.0.0.1:4943',
-        changeOrigin: true
-      }
-    },
-    host: '127.0.0.1'
+  build: {
+    rollupOptions: {
+      external: ['declarations']
+    }
   }
-});
+}); 
