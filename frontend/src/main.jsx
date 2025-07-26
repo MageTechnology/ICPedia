@@ -72,14 +72,25 @@ const App = () => {
   }, [chat]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center icpedia-bg-primary p-4">
-      <div className="flex h-[80vh] w-full max-w-2xl flex-col rounded-lg icpedia-bg-secondary shadow-lg">
+    <div className="flex min-h-screen items-center justify-center icpedia-bg-primary p-2 sm:p-4">
+      <div className="flex h-[90vh] sm:h-[80vh] w-full max-w-4xl flex-col rounded-xl icpedia-bg-secondary shadow-2xl">
         {/* Header com título e subtítulo */}
-        <div className="icpedia-bg-secondary p-6 border-b border-gray-200 rounded-t-lg">
-          <h1 className="text-3xl font-bold icpedia-text-primary mb-2">ICPedia</h1>
-          <p className="icpedia-text-secondary">Sua enciclopédia amigável para o Internet Computer.</p>
+        <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6 border-b border-gray-200 rounded-t-xl">
+          <div className="flex items-center mb-3">
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mr-4 shadow-lg">
+              <span className="text-white font-bold text-xl">IC</span>
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">ICPedia</h1>
+              <p className="text-sm text-gray-500 mt-1">Powered by Internet Computer</p>
+            </div>
+          </div>
+          <p className="icpedia-text-secondary flex items-center text-lg">
+            <span className="mr-3 text-2xl">📚</span>
+            Sua enciclopédia amigável para o Internet Computer.
+          </p>
         </div>
-        <div className="flex-1 overflow-y-auto icpedia-bg-primary p-4" ref={chatBoxRef}>
+        <div className="flex-1 overflow-y-auto icpedia-bg-primary p-4 chat-container" ref={chatBoxRef}>
           {chat.map((message, index) => {
             const isUser = 'user' in message;
             const img = isUser ? userImg : botImg;
@@ -87,36 +98,37 @@ const App = () => {
             const text = isUser ? message.user.content : message.system.content;
 
             return (
-              <div key={index} className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}>
+              <div key={index} className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-6 chat-message`}>
                 {!isUser && (
-                  <div
-                    className="mr-2 h-10 w-10 rounded-full"
-                    style={{ backgroundImage: `url(${img})`, backgroundSize: 'cover' }}
-                  ></div>
-                )}
-                <div className={`max-w-[70%] rounded-lg p-3 ${isUser ? 'icpedia-user-message icpedia-text-primary' : 'icpedia-bot-message shadow'}`}>
-                  <div
-                    className={`mb-1 flex items-center justify-between text-sm ${isUser ? 'icpedia-text-secondary' : 'icpedia-text-secondary'}`}
-                  >
-                    <div>{name}</div>
-                    <div className="mx-2">{formatDate(new Date())}</div>
+                  <div className="mr-3 h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg">
+                    <span className="text-white font-bold text-sm">IC</span>
                   </div>
-                  <div>{text}</div>
+                )}
+                <div className={`max-w-[85%] sm:max-w-[75%] rounded-2xl p-4 shadow-lg ${isUser ? 'icpedia-user-message icpedia-text-primary border-l-4 border-blue-500' : 'icpedia-bot-message border-l-4 border-purple-500'}`}>
+                  <div
+                    className={`mb-2 flex items-center justify-between text-xs font-medium ${isUser ? 'icpedia-text-secondary' : 'icpedia-text-secondary'}`}
+                  >
+                    <div className="flex items-center">
+                      <span className="mr-2">{isUser ? '👤' : '🤖'}</span>
+                      {name}
+                    </div>
+                    <div className="text-gray-400">{formatDate(new Date())}</div>
+                  </div>
+                  <div className="leading-relaxed">{text}</div>
                 </div>
                 {isUser && (
-                  <div
-                    className="ml-2 h-10 w-10 rounded-full"
-                    style={{ backgroundImage: `url(${img})`, backgroundSize: 'cover' }}
-                  ></div>
+                  <div className="ml-3 h-10 w-10 rounded-full bg-gradient-to-br from-green-500 to-blue-600 flex items-center justify-center shadow-lg">
+                    <span className="text-white font-bold text-sm">U</span>
+                  </div>
                 )}
               </div>
             );
           })}
         </div>
-        <form className="flex rounded-b-lg border-t icpedia-bg-secondary p-4" onSubmit={handleSubmit}>
+        <form className="flex rounded-b-xl border-t icpedia-bg-secondary p-4" onSubmit={handleSubmit}>
           <input
             type="text"
-            className="flex-1 rounded-l border p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 icpedia-text-primary"
+            className="flex-1 rounded-l-lg border p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 icpedia-text-primary text-sm sm:text-base"
             placeholder="Pergunte algo sobre o ICP... (ex: O que é um canister?)"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
@@ -124,12 +136,22 @@ const App = () => {
           />
           <button
             type="submit"
-            className="rounded-r icpedia-accent p-2 text-white hover:icpedia-accent-hover disabled:bg-blue-300"
+            className="rounded-r-lg icpedia-accent p-3 text-white hover:icpedia-accent-hover disabled:bg-blue-300 flex items-center justify-center min-w-[80px]"
             disabled={isLoading}
           >
-            Enviar
+            {isLoading ? (
+              <div className="loading-pulse">⏳</div>
+            ) : (
+              <span>Enviar</span>
+            )}
           </button>
         </form>
+        {/* Footer */}
+        <div className="bg-gradient-to-r from-gray-50 to-blue-50 p-3 border-t border-gray-200 rounded-b-xl">
+          <p className="text-center text-xs text-gray-500">
+            💡 Dica: Pergunte sobre canisters, cycles, Motoko, ou qualquer conceito do ICP!
+          </p>
+        </div>
       </div>
     </div>
   );
